@@ -1,0 +1,23 @@
+*.xlsx
+*.pyc
+*dp-cache*
+*.txt
+*.log
+
+!formatting_macro.xlsm
+
+# Buyer Monitoring Report
+buyer_monitoring_report/*.html
+!buyer_monitoring_report/templates/*.html
+
+# Market Risk
+market_risk/*.html
+
+# Aux files for modules
+!inwards_tasks/aux_files/*
+!inwards_tasks/market_risk/templates/*.html
+
+ECAP_Dashboards/*.html
+
+# Jupyter Notebooks are static documents that shouldn't be tracked
+Pre-run Data Checks/pre-run_data_checks.ipynb
