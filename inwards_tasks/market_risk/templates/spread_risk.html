@@ -1,0 +1,101 @@
+<head>
+  {% include 'head_base.html' %}
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+  <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-summary-tab" data-bs-toggle="pill" data-bs-target="#pills-summary"
+        type="button" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-maturity-analysis-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-maturity-analysis" type="button" role="tab" aria-controls="pills-maturity-analysis"
+        aria-selected="false">Maturity Analysis</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-summary" role="tabpanel" aria-labelledby="pills-summary-tab">
+      <div id="summary-page">
+        <div class="container-fluid report-padding">
+          <div class="row justify-content-between">
+            <div class="col">
+              <dl class="big-number-box">
+                <dt class="big-number-header">Spread SCR at {{ current_period }}</dt>
+                <dd class="big-number">{{ current_scr }}</dd>
+              </dl>
+            </div>
+            <div class="col">
+              <dl class="big-number-box">
+                <dt class="big-number-header">From {{ previous_period }} to {{ current_period }}</dt>
+                <dd class="big-number">
+                  <div class="row justify-content-between align-middle">
+                    <div class="col big-number">
+                      {{ total_diff_qoq }} (from {{ previous_scr_in_m }})
+                    </div>
+                    {% if scr_increase %}
+                    <div class="col-2 box-variation box-variation-negative text-center">
+                      <i class="fas fa-arrow-up"></i> {{ scr_diff_pct_formatted }}
+                    </div>
+                    {% else %}
+                    <div class="col-2 box-variation box-variation-positive text-center">
+                      <i class="fas fa-arrow-down"></i> {{ scr_diff_pct_formatted }}
+                    </div>
+                    {% endif %}
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <br>
+          <div class="row justify-content-between">
+            <div class="col">
+              <p>{{ scr_movement_summary_text }}</p>
+            </div>
+            <div class="col" style="height: 450px">
+              {{ waterfall_plot }}
+            </div>
+          </div>
+          <div class="row justify-content-between">
+            <div class="col">
+              <p>{{ mv_scr_plot }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-maturity-analysis" role="tabpanel" aria-labelledby="pills-maturity-analysis-tab">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        {% for plots in maturity_analysis_plots %}
+        <li class="nav-item sub-menu-ul" role="presentation">
+          <button class="nav-link" id="pills-{{ plots[2] }}-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-{{ plots[2] }}" type="button" role="tab" aria-controls="pills-{{ plots[2] }}"
+            aria-selected="true">{{ plots[3] }}</button>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        {% for plots in maturity_analysis_plots %}
+        <div class="tab-pane fade" id="pills-{{ plots[2] }}" role="tabpanel"
+          aria-labelledby="pills-{{ plots[2] }}-tab">
+          <div class="row">
+            <div class="col">
+              {{ plots[0] }}
+            </div>
+            <div class="col">
+              {{ plots[1] }}
+            </div>            
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
