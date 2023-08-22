@@ -1,0 +1,29 @@
+<div class="row justify-content-between">
+    <div class="col">
+        <dl class="big-number-box">
+            <dt class="big-number-header">Spread SCR at {{ current_period }}</dt>
+            <dd class="big-number">{{ current_scr }}</dd>
+        </dl>
+    </div>
+    <div class="col">
+        <dl class="big-number-box">
+            <dt class="big-number-header">From {{ previous_period }} to {{ current_period }}</dt>
+            <dd class="big-number">
+                <div class="row justify-content-between align-middle">
+                    <div class="col big-number">
+                        {{ total_diff_qoq }} (from {{ previous_scr_in_m }})
+                    </div>
+                    {% if scr_increase %}
+                    <div class="col-2 box-variation box-variation-negative text-center">
+                        <i class="fas fa-arrow-up"></i> {{ scr_diff_pct_formatted }}
+                    </div>
+                    {% else %}
+                    <div class="col-2 box-variation box-variation-positive text-center">
+                        <i class="fas fa-arrow-down"></i> {{ scr_diff_pct_formatted }}
+                    </div>
+                    {% endif %}
+                </div>
+            </dd>
+        </dl>
+    </div>
+</div>
