@@ -1,0 +1,70 @@
+<div class="row row-margin-smallscreen">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5>Movement Summary Table</h5>
+            <div class="table-reponsive">
+                <table class="table table-nowrap card-table" style="color: #2a3f5f;">
+                    <thead>
+                    {% for table_header in table_headers %}
+                        <th scope="col">{{ table_header }}</th>
+                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                        <tr>
+                            <th scope='row'> {{ row['title'] }} </th>
+                            <!-- If to check if dealing with Rating or % of TPE -->
+                            {% if row['current_val'] > 1 %} 
+                                <td>{{ '{:.1f}'.format(row['current_val']) }}</td>
+                                <td>{{ '{:.1f}'.format(row['previous_val']) }}</td>
+                            {% else %}
+                                <td>{{ '{:.1%}'.format(row['current_val']) }}</td>
+                                <td>{{ '{:.1%}'.format(row['previous_val']) }}</td>
+                            {% endif %}
+
+                            <!-- If to check if movement is good or bad -->
+                            {% if row['title'] == '% Buyers below 50' %}
+                                {% if row['month_pct_ch'] < 0 %}
+                                    <td><span class="badge badge-soft-danger w-100">{{ '{:.1%}'.format(row['month_pct_ch']) }}</span></td>
+                                {% else %}
+                                    <td><span class="badge badge-soft-success w-100">{{ '{:.1%}'.format(row['month_pct_ch']) }}</span></td>
+                                {% endif %}
+                            {% else %}
+                                {% if row['month_pct_ch'] < 0 %}
+                                    <td><span class="badge badge-soft-success w-100">{{ '{:.1%}'.format(row['month_pct_ch']) }}</span></td>
+                                {% else %}
+                                    <td><span class="badge badge-soft-danger w-100">{{ '{:.1%}'.format(row['month_pct_ch']) }}</span></td>
+                                {% endif %}
+                            {% endif %}
+
+                            <!-- If to check if dealing with Rating or % of TPE -->
+                            {% if row['current_val'] > 1 %} 
+                                <td>{{ '{:.1f}'.format(row['dec_val']) }}</td>
+                            {% else %}
+                                <td>{{ '{:.1%}'.format(row['dec_val']) }}</td>
+                            {% endif %}
+
+                            <!-- If to check if movement is good or bad -->
+
+                            {% if row['title'] == '% Buyers below 50' %}
+                                {% if row['ytd_pct_ch'] < 0 %}
+                                    <td><span class="badge badge-soft-danger w-100">{{ '{:.1%}'.format(row['ytd_pct_ch']) }}</span></td>
+                                {% else %}
+                                    <td><span class="badge badge-soft-success w-100">{{ '{:.1%}'.format(row['ytd_pct_ch']) }}</span></td>
+                                {% endif %}
+                            {% else %}
+                                {% if row['ytd_pct_ch'] < 0 %}
+                                    <td><span class="badge badge-soft-success w-100">{{ '{:.1%}'.format(row['ytd_pct_ch']) }}</span></td>
+                                {% else %}
+                                    <td><span class="badge badge-soft-danger w-100">{{ '{:.1%}'.format(row['ytd_pct_ch']) }}</span></td>
+                                {% endif %}
+                            {% endif %}
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

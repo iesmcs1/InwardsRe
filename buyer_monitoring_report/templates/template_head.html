@@ -1,0 +1,175 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buyer Monitoring Report</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+<!-- 3 links below are for sortable and searchable tables -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+<style>
+    .graph img {
+        width: 100%;
+    }
+
+    .row {
+        flex-flow: wrap;
+        align-items: center;
+    }
+
+    .big-number {
+        font-size: xx-large;
+    }
+
+    .big-number-header {
+        font-weight: normal;
+    }
+
+    .big-number-box {
+        border: 1px solid lightgray;
+        border-radius: .5rem;
+        padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    }
+
+    .box-variation {
+        font-size: medium;
+        border-radius: 9999px;
+        margin-right: 10px;
+    }
+
+    .box-variation-positive {
+        background-color: rgba(209, 250, 229, 1);
+        color: rgba(6, 95, 70, 1);
+    }
+
+    .box-variation-negative {
+        background-color: rgba(254, 226, 226, 1);
+        color: rgba(153, 27, 27, 1)
+    }
+
+    .report-padding {
+        padding: 0.5rem 0rem 1rem 0rem;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+
+    .sub-menu-ul {
+        padding: 1.5rem 0rem 1.5rem 1.5rem;
+    }
+
+    .badge-soft-success{
+        background-color: rgba(75, 191, 115, 0.175);
+        color: #4BBF73;
+    }
+
+    .badge-soft-danger{
+        background-color: rgba(217, 83, 79, 0.175);
+        color: #d9534f;
+    }
+
+    .logo-img {
+      width: 7rem;
+      margin-left: .5rem;
+      margin-bottom: 2rem;
+    }
+
+    .fixed-table-toolbar,
+    .fixed-table-container {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .row-margin-smallscreen {
+        margin: 1rem;
+    }
+
+/* 
+    @media (min-width: 1400px) {
+        .report-padding {
+            padding: 1rem 0rem 1rem 0rem;
+        }
+
+        .row-margin-smallscreen {
+            margin: 0;
+        }
+    } */
+
+    .plot-full-row {
+        width: 100%;
+        margin: 0 5rem
+    }
+
+    @media (max-width: 950px) {
+        .plot-full-row {
+            width: 100%;
+            margin: 0 0
+        }       
+
+    }
+
+    /* 1. Enable smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* 2. Make nav sticky */
+    main > nav {
+        position: fixed;
+        /* top: 2rem; */
+        right: 2em;
+        align-self: start;
+    }
+
+    /* 3. ScrollSpy active styles (see JS tab for activation) */
+    .section-nav li.active > a {
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Sidebar Navigation */
+    .section-nav {
+        padding-top: 2rem;
+        padding-left: 0;
+        border-left: 1px solid #efefef;
+        width: 6rem;
+        height: 100%;
+    }
+
+    .section-nav a {
+        text-decoration: none;
+        display: block;
+        padding: .125rem 0;
+        color: #ccc;
+        transition: all 50ms ease-in-out; 
+    }
+
+    .section-nav a:hover,
+    .section-nav a:focus {
+        color: #666;
+    }
+
+    /** page layout **/
+    main {
+        display: grid;
+        grid-template-columns: 1fr 8em;
+        max-width: 100em;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-weight: bold;
+        border-bottom: 1px solid lightgray;
+        padding-bottom: 0.3em;
+    }
+
+</style>
